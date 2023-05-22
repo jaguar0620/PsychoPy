@@ -1,0 +1,33 @@
+#!/bin/bash
+#############################
+# PsychoPy Installer
+#############################
+# 05/22/2023
+# Leon Briggs
+#############################
+#
+
+# Set temporary directory
+tmp_dir="/private/var/tmp"
+
+cd "$tmp_dir"
+
+# Download PsychoPy Standalone installer
+echo "Downloading PsychoPy Standalone..."
+curl -L -o psychopy.dmg "https://github.com/psychopy/psychopy/releases/download/2023.1.2/StandalonePsychoPy-2023.1.2-macOS.dmg"
+
+# Mount the downloaded file
+echo "Mounting PsychoPy Standalone Installer..."
+hdiutil mount -nobrowse psychopy.dmg -mountpoint /Volumes/PsychoPy-2023.1.2
+
+# Copy PsychoPy.app to Application Folder
+echo "Copying PsychoPy Applications Folder..."
+cp -R "/Volumes/PsychoPy-2023.1.2/PsychoPy.app" /Applications/
+
+# Eject DMG and Remove Installer File from Temp Directory
+diskutil eject /Volumes/PsychoPy-2023.1.2
+rm psychopy.dmg
+
+echo "PsychoPy Standalone installation complete."
+
+exit 0
